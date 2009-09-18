@@ -22,14 +22,13 @@ class FiverunsTest < Test::Unit::TestCase
   end
   
   def test_log
-    # 5.times do
-    #   get "/foo"
-    # end
-    # 
-    # CouchRest::Logger.log.sort_by{ |l| l["started_at"] }.each do |l|
-    #   puts "#{l["url"]} - #{l["started_at"]} - #{l["ended_at"]} - #{l["duration"]}"
-    # end
-    # 
-    # assert_equal 5, CouchRest::Logger.log.size
+    5.times do
+      get "/foo"
+    end
+    
+    # Not really sure what this is all about, but I got it to work
+    data = Fiveruns::Dash.session.data
+    
+    assert_equal 5, data.first[:values].first[:invocations]
   end  
 end
