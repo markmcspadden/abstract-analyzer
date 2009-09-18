@@ -1,3 +1,6 @@
+# Mostly a copy of http://merbist.com/2009/07/27/ruby-rack-and-couchdb-lots-of-awesomeness/
+# Used for mostly for learning purposes
+
 module CouchRest
   class Logger
     
