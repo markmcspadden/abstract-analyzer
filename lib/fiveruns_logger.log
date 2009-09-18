@@ -1,0 +1,221 @@
+# Logfile created on Fri Sep 18 01:45:26 -0500 2009 by /
+W, [2009-09-18T01:45:26.465949 #23501]  WARN -- : REGISTERING
+E, [2009-09-18T01:45:26.466273 #23501] ERROR -- : Unable to instrument 'Fiveruns::Logger#call': uninitialized constant Fiveruns::Logger
+E, [2009-09-18T01:45:26.466328 #23501] ERROR -- : /usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/util.rb:37:in `constantize'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/util.rb:36:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/util.rb:36:in `constantize'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/instrument.rb:23:in `add'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/instrument.rb:19:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/instrument.rb:19:in `add'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:272:in `install_hook'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:271:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:271:in `install_hook'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:246:in `initialize'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:124:in `new'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:124:in `method_missing'
+	/Users/mark/Development/action_analyzer/test/../lib/fiveruns_analyzer.rb:36
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:32:in `call'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:32:in `add_to'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:17:in `in_scope'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:31:in `add_to'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:77:in `add_recipe'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:106:in `with_recipe_settings'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:76:in `add_recipe'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:73:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:73:in `add_recipe'
+	/Users/mark/Development/action_analyzer/test/../lib/fiveruns_analyzer.rb:58
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash.rb:72:in `configure'
+	/Users/mark/Development/action_analyzer/test/../lib/fiveruns_analyzer.rb:56
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+	/Users/mark/Development/action_analyzer/test/../action_analyzer.rb:3
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+	/Users/mark/Development/action_analyzer/test/action_analyzer_test.rb:7
+I, [2009-09-18T01:45:26.656154 #23501]  INFO -- : Starting Dash with gems ["fiveruns-dash-ruby-0.8.10"]
+I, [2009-09-18T01:45:26.656797 #23501]  INFO -- : Starting reporter thread; endpoints are ["http://dash-collector.fiveruns.com", "http://dash-collector02.fiveruns.com"]
+D, [2009-09-18T01:45:26.674359 #23501] DEBUG -- : Sending info: {"recipes":[{"name":"actionpack","url":"http:\/\/example.org"}],"metric_infos":[{"data_type":"time","description":"Response Time","name":"response_time","help_text":null,"recipe_url":"http:\/\/example.org","recipe_name":"actionpack"}]}
+I, [2009-09-18T01:45:26.674815 #23501]  INFO -- : Store http
+I, [2009-09-18T01:45:26.675379 #23501]  INFO -- : #<Fiveruns::Dash::InfoPayload:0x1125b00 @version="0.8.10", @data={:recipes=>[{:name=>"actionpack", :url=>"http://example.org"}], :metric_infos=>[{:data_type=>:time, :description=>"Response Time", :name=>"response_time", :help_text=>nil, :recipe_url=>"http://example.org", :recipe_name=>"actionpack"}]}, @started_at=Fri Sep 18 06:45:26 UTC 2009>
+I, [2009-09-18T01:45:26.676133 #23501]  INFO -- : SCM: Found git in /Users/mark/Development/action_analyzer
+I, [2009-09-18T01:45:26.686282 #23501]  INFO -- : SCM: Using Fiveruns::Dash::GitSCM in /Users/mark/Development/action_analyzer
+I, [2009-09-18T01:45:26.690311 #23501]  INFO -- : CALLING
+W, [2009-09-18T01:47:35.370139 #23557]  WARN -- : REGISTERING
+E, [2009-09-18T01:47:35.370514 #23557] ERROR -- : Unable to instrument 'Fiveruns::Logger#call': uninitialized constant Fiveruns::Logger
+E, [2009-09-18T01:47:35.370576 #23557] ERROR -- : /usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/util.rb:37:in `constantize'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/util.rb:36:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/util.rb:36:in `constantize'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/instrument.rb:23:in `add'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/instrument.rb:19:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/instrument.rb:19:in `add'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:272:in `install_hook'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:271:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:271:in `install_hook'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:246:in `initialize'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:124:in `new'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:124:in `method_missing'
+	/Users/mark/Development/action_analyzer/test/../lib/fiveruns_analyzer.rb:36
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:32:in `call'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:32:in `add_to'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:17:in `in_scope'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:31:in `add_to'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:77:in `add_recipe'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:106:in `with_recipe_settings'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:76:in `add_recipe'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:73:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:73:in `add_recipe'
+	/Users/mark/Development/action_analyzer/test/../lib/fiveruns_analyzer.rb:58
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash.rb:72:in `configure'
+	/Users/mark/Development/action_analyzer/test/../lib/fiveruns_analyzer.rb:56
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+	/Users/mark/Development/action_analyzer/test/../action_analyzer.rb:3
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+	/Users/mark/Development/action_analyzer/test/spec_helper.rb:7
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+	/Users/mark/Development/action_analyzer/test/hello_world_analyzer_test.rb:1
+	/usr/local/lib/ruby/gems/1.8/gems/rspec-1.2.8/lib/spec/runner/example_group_runner.rb:15:in `load'
+	/usr/local/lib/ruby/gems/1.8/gems/rspec-1.2.8/lib/spec/runner/example_group_runner.rb:15:in `load_files'
+	/usr/local/lib/ruby/gems/1.8/gems/rspec-1.2.8/lib/spec/runner/example_group_runner.rb:14:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/rspec-1.2.8/lib/spec/runner/example_group_runner.rb:14:in `load_files'
+	/usr/local/lib/ruby/gems/1.8/gems/rspec-1.2.8/lib/spec/runner/options.rb:107:in `run_examples'
+	/usr/local/lib/ruby/gems/1.8/gems/rspec-1.2.8/lib/spec/runner/command_line.rb:9:in `run'
+	/Users/mark/Library/Application Support/TextMate/Bundles/RSpec.tmbundle/Support/lib/spec/../spec/mate/runner.rb:32:in `run'
+	/Users/mark/Library/Application Support/TextMate/Bundles/RSpec.tmbundle/Support/lib/spec/../spec/mate/runner.rb:31:in `chdir'
+	/Users/mark/Library/Application Support/TextMate/Bundles/RSpec.tmbundle/Support/lib/spec/../spec/mate/runner.rb:31:in `run'
+	/Users/mark/Library/Application Support/TextMate/Bundles/RSpec.tmbundle/Support/lib/spec/../spec/mate/runner.rb:14:in `run_file'
+	/tmp/textmate-command-23554.rb:3
+I, [2009-09-18T01:47:35.558020 #23557]  INFO -- : Starting Dash with gems ["fiveruns-dash-ruby-0.8.10"]
+I, [2009-09-18T01:47:35.558768 #23557]  INFO -- : Starting reporter thread; endpoints are ["http://dash-collector.fiveruns.com", "http://dash-collector02.fiveruns.com"]
+D, [2009-09-18T01:47:35.596087 #23557] DEBUG -- : Sending info: {"metric_infos":[{"recipe_url":"http:\/\/example.org","recipe_name":"actionpack","name":"response_time","description":"Response Time","data_type":"time","help_text":null}],"recipes":[{"url":"http:\/\/example.org","name":"actionpack"}]}
+I, [2009-09-18T01:47:35.605339 #23557]  INFO -- : Store http
+I, [2009-09-18T01:47:35.605794 #23557]  INFO -- : #<Fiveruns::Dash::InfoPayload:0x1a301f0 @version="0.8.10", @started_at=Fri Sep 18 06:47:35 UTC 2009, @data={:metric_infos=>[{:recipe_url=>"http://example.org", :recipe_name=>"actionpack", :name=>"response_time", :description=>"Response Time", :data_type=>:time, :help_text=>nil}], :recipes=>[{:url=>"http://example.org", :name=>"actionpack"}]}>
+W, [2009-09-18T01:47:49.810427 #23575]  WARN -- : REGISTERING
+E, [2009-09-18T01:47:49.810891 #23575] ERROR -- : Unable to instrument 'Fiveruns::Logger#call': uninitialized constant Fiveruns::Logger
+E, [2009-09-18T01:47:49.810950 #23575] ERROR -- : /usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/util.rb:37:in `constantize'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/util.rb:36:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/util.rb:36:in `constantize'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/instrument.rb:23:in `add'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/instrument.rb:19:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/instrument.rb:19:in `add'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:272:in `install_hook'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:271:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:271:in `install_hook'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:246:in `initialize'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:124:in `new'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:124:in `method_missing'
+	/Users/mark/Development/action_analyzer/test/../lib/fiveruns_analyzer.rb:36
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:32:in `call'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:32:in `add_to'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:17:in `in_scope'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:31:in `add_to'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:77:in `add_recipe'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:106:in `with_recipe_settings'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:76:in `add_recipe'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:73:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:73:in `add_recipe'
+	/Users/mark/Development/action_analyzer/test/../lib/fiveruns_analyzer.rb:58
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash.rb:72:in `configure'
+	/Users/mark/Development/action_analyzer/test/../lib/fiveruns_analyzer.rb:56
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+	/Users/mark/Development/action_analyzer/test/../action_analyzer.rb:3
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+	/Users/mark/Development/action_analyzer/test/spec_helper.rb:7
+	/Users/mark/Development/action_analyzer/test/hello_world_analyzer_test.rb:1:in `require'
+	/Users/mark/Development/action_analyzer/test/hello_world_analyzer_test.rb:1
+I, [2009-09-18T01:47:49.998950 #23575]  INFO -- : Starting Dash with gems ["fiveruns-dash-ruby-0.8.10"]
+I, [2009-09-18T01:47:49.999454 #23575]  INFO -- : Starting reporter thread; endpoints are ["http://dash-collector.fiveruns.com", "http://dash-collector02.fiveruns.com"]
+D, [2009-09-18T01:47:50.015973 #23575] DEBUG -- : Sending info: {"recipes":[{"name":"actionpack","url":"http:\/\/example.org"}],"metric_infos":[{"recipe_name":"actionpack","data_type":"time","name":"response_time","description":"Response Time","help_text":null,"recipe_url":"http:\/\/example.org"}]}
+I, [2009-09-18T01:47:50.016400 #23575]  INFO -- : Store http
+I, [2009-09-18T01:47:50.017589 #23575]  INFO -- : #<Fiveruns::Dash::InfoPayload:0x1130910 @started_at=Fri Sep 18 06:47:49 UTC 2009, @version="0.8.10", @data={:recipes=>[{:name=>"actionpack", :url=>"http://example.org"}], :metric_infos=>[{:recipe_name=>"actionpack", :data_type=>:time, :name=>"response_time", :description=>"Response Time", :help_text=>nil, :recipe_url=>"http://example.org"}]}>
+I, [2009-09-18T01:47:50.018182 #23575]  INFO -- : SCM: Found git in /Users/mark/Development/action_analyzer
+I, [2009-09-18T01:47:50.028312 #23575]  INFO -- : SCM: Using Fiveruns::Dash::GitSCM in /Users/mark/Development/action_analyzer
+W, [2009-09-18T01:47:54.292365 #23594]  WARN -- : REGISTERING
+E, [2009-09-18T01:47:54.292755 #23594] ERROR -- : Unable to instrument 'Fiveruns::Logger#call': uninitialized constant Fiveruns::Logger
+E, [2009-09-18T01:47:54.292814 #23594] ERROR -- : /usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/util.rb:37:in `constantize'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/util.rb:36:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/util.rb:36:in `constantize'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/instrument.rb:23:in `add'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/instrument.rb:19:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/instrument.rb:19:in `add'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:272:in `install_hook'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:271:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:271:in `install_hook'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:246:in `initialize'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:124:in `new'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:124:in `method_missing'
+	/Users/mark/Development/action_analyzer/test/../lib/fiveruns_analyzer.rb:36
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:32:in `call'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:32:in `add_to'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:17:in `in_scope'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:31:in `add_to'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:77:in `add_recipe'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:106:in `with_recipe_settings'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:76:in `add_recipe'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:73:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:73:in `add_recipe'
+	/Users/mark/Development/action_analyzer/test/../lib/fiveruns_analyzer.rb:58
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash.rb:72:in `configure'
+	/Users/mark/Development/action_analyzer/test/../lib/fiveruns_analyzer.rb:56
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+	/Users/mark/Development/action_analyzer/test/../action_analyzer.rb:3
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+	/Users/mark/Development/action_analyzer/test/spec_helper.rb:7
+	/Users/mark/Development/action_analyzer/test/couch_analyzer_test.rb:1:in `require'
+	/Users/mark/Development/action_analyzer/test/couch_analyzer_test.rb:1
+I, [2009-09-18T01:47:54.482459 #23594]  INFO -- : Starting Dash with gems ["fiveruns-dash-ruby-0.8.10"]
+I, [2009-09-18T01:47:54.483136 #23594]  INFO -- : Starting reporter thread; endpoints are ["http://dash-collector.fiveruns.com", "http://dash-collector02.fiveruns.com"]
+D, [2009-09-18T01:47:54.499747 #23594] DEBUG -- : Sending info: {"metric_infos":[{"help_text":null,"recipe_url":"http:\/\/example.org","name":"response_time","recipe_name":"actionpack","description":"Response Time","data_type":"time"}],"recipes":[{"name":"actionpack","url":"http:\/\/example.org"}]}
+I, [2009-09-18T01:47:54.500166 #23594]  INFO -- : Store http
+I, [2009-09-18T01:47:54.501067 #23594]  INFO -- : #<Fiveruns::Dash::InfoPayload:0x112d634 @started_at=Fri Sep 18 06:47:54 UTC 2009, @data={:metric_infos=>[{:help_text=>nil, :recipe_url=>"http://example.org", :name=>"response_time", :recipe_name=>"actionpack", :description=>"Response Time", :data_type=>:time}], :recipes=>[{:name=>"actionpack", :url=>"http://example.org"}]}, @version="0.8.10">
+I, [2009-09-18T01:47:54.501642 #23594]  INFO -- : SCM: Found git in /Users/mark/Development/action_analyzer
+I, [2009-09-18T01:47:54.511858 #23594]  INFO -- : SCM: Using Fiveruns::Dash::GitSCM in /Users/mark/Development/action_analyzer
+W, [2009-09-18T01:49:06.211097 #23626]  WARN -- : REGISTERING
+E, [2009-09-18T01:49:06.211454 #23626] ERROR -- : Unable to instrument 'Fiveruns::Logger#call': uninitialized constant Fiveruns::Logger
+E, [2009-09-18T01:49:06.211509 #23626] ERROR -- : /usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/util.rb:37:in `constantize'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/util.rb:36:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/util.rb:36:in `constantize'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/instrument.rb:23:in `add'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/instrument.rb:19:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/instrument.rb:19:in `add'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:272:in `install_hook'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:271:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:271:in `install_hook'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/metric.rb:246:in `initialize'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:124:in `new'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:124:in `method_missing'
+	/Users/mark/Development/action_analyzer/test/../lib/fiveruns_analyzer.rb:36
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:32:in `call'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:32:in `add_to'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:17:in `in_scope'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/recipe.rb:31:in `add_to'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:77:in `add_recipe'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:106:in `with_recipe_settings'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:76:in `add_recipe'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:73:in `each'
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash/configuration.rb:73:in `add_recipe'
+	/Users/mark/Development/action_analyzer/test/../lib/fiveruns_analyzer.rb:58
+	/usr/local/lib/ruby/gems/1.8/gems/fiveruns-dash-ruby-0.8.10/lib/fiveruns/dash.rb:72:in `configure'
+	/Users/mark/Development/action_analyzer/test/../lib/fiveruns_analyzer.rb:56
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+	/Users/mark/Development/action_analyzer/test/../action_analyzer.rb:3
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+	/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+	/Users/mark/Development/action_analyzer/test/spec_helper.rb:7
+	/Users/mark/Development/action_analyzer/test/fiveruns_analyzer_test.rb:1:in `require'
+	/Users/mark/Development/action_analyzer/test/fiveruns_analyzer_test.rb:1
+I, [2009-09-18T01:49:06.399083 #23626]  INFO -- : Starting Dash with gems ["fiveruns-dash-ruby-0.8.10"]
+I, [2009-09-18T01:49:06.399732 #23626]  INFO -- : Starting reporter thread; endpoints are ["http://dash-collector.fiveruns.com", "http://dash-collector02.fiveruns.com"]
+D, [2009-09-18T01:49:06.416428 #23626] DEBUG -- : Sending info: {"metric_infos":[{"help_text":null,"description":"Response Time","recipe_url":"http:\/\/example.org","name":"response_time","recipe_name":"actionpack","data_type":"time"}],"recipes":[{"name":"actionpack","url":"http:\/\/example.org"}]}
+I, [2009-09-18T01:49:06.416854 #23626]  INFO -- : Store http
+I, [2009-09-18T01:49:06.417781 #23626]  INFO -- : #<Fiveruns::Dash::InfoPayload:0x113053c @version="0.8.10", @started_at=Fri Sep 18 06:49:06 UTC 2009, @data={:metric_infos=>[{:help_text=>nil, :description=>"Response Time", :recipe_url=>"http://example.org", :name=>"response_time", :recipe_name=>"actionpack", :data_type=>:time}], :recipes=>[{:name=>"actionpack", :url=>"http://example.org"}]}>
+I, [2009-09-18T01:49:06.418322 #23626]  INFO -- : SCM: Found git in /Users/mark/Development/action_analyzer
+I, [2009-09-18T01:49:06.419036 #23626]  INFO -- : SCM: Using Fiveruns::Dash::GitSCM in /Users/mark/Development/action_analyzer
+I, [2009-09-18T01:49:06.438769 #23626]  INFO -- : CALLING
