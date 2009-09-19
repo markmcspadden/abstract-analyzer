@@ -1,10 +1,10 @@
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 class FiverunsTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
   class HelloApp < HelloWorld
-    
+
   end
 
   class MyApp < FiverunsAnalyzer::Logger
@@ -29,6 +29,14 @@ class FiverunsTest < Test::Unit::TestCase
     # Not really sure what this is all about, but I got it to work
     data = Fiveruns::Dash.session.data
     
+    assert_equal 5, data.first[:values].first[:invocations]
+    
+    5.times do
+      get "/foo"
+    end
+    
+    # OK. Accessing the session data clears it out.
+    data2 = Fiveruns::Dash.session.data
     assert_equal 5, data.first[:values].first[:invocations]
   end  
 end

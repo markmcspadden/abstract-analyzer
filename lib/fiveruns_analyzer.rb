@@ -34,13 +34,26 @@ module FiverunsAnalyzer
     end
  
     def call(env)
-      RAILS_DEFAULT_LOGGER.info "CALLING"      
-      @app.call(env)
+      RAILS_DEFAULT_LOGGER.info "CALLING" 
+      
+      # NOTE: I really don't understand Fiveruns::Dash:Context
+      # This is never true right now, always falls to else
+      trace_context = ["actionpack", "FiverunsAnalyzer:Logger#call"]
+      if Fiveruns::Dash.trace_contexts.include?(trace_context)
+        Fiveruns::Dash.session.trace(trace_context) do
+          @app.call(env)
+        end
+      else
+        # ALWAYS HERE RIGHT NOW
+        @app.call(env)
+      end     
+      
+      
     end
     
     def startup_fiveruns
       Fiveruns::Dash.register_recipe :actionpack, :url => 'http://example.org' do |recipe|
-        Fiveruns::Dash.logger.info 'REGISTERING'
+        Fiveruns::Dash.logger.info 'REGISTERING ACTIONPACK RECIPE'
         recipe.time :response_time, :method => 'FiverunsAnalyzer::Logger#call', :mark => true
       end
 
