@@ -15,6 +15,13 @@ class FiverunsTest < Test::Unit::TestCase
     MyApp.new(HelloApp.new)
   end
 
+  def test_mongodb
+    get "/foo"
+    
+    assert_not_nil MongoMapper.connection
+    assert_not_nil MongoMapper.database
+  end
+
   def test_success
     get "/foo"
     

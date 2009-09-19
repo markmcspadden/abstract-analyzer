@@ -9,6 +9,8 @@ require 'rubygems' # I know I know...
 gem 'fiveruns-dash-ruby' # Put its path first
 require 'fiveruns/dash'
 
+require 'mongomapper'
+
 module Fiveruns::Dash::Store
   module HTTP
     def store_http(*)
@@ -28,6 +30,7 @@ end
 module FiverunsAnalyzer  
   class Logger   
     def initialize(app)
+      
       startup_fiveruns
       
       @app = app
