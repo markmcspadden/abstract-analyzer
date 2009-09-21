@@ -5,4 +5,4 @@ require "autotest"
 
 require "rack/test"
 
-require File.dirname(__FILE__) << "/../action_analyzer"
+require File.dirname(__FILE__) << "/../abstract_analyzer"

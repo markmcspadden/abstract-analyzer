@@ -9,7 +9,13 @@ require 'rubygems' # I know I know...
 gem 'fiveruns-dash-ruby' # Put its path first
 require 'fiveruns/dash'
 
-require 'mongomapper'
+require 'mongo'  
+
+DB = Mongo::Connection.new('localhost', 27017).db('fiveruns-analyzer-db')      
+
+# class Fiveruns::Dash::Configuration
+#   attr_accessor :db
+# end
 
 module Fiveruns::Dash::Store
   module HTTP
@@ -17,6 +23,23 @@ module Fiveruns::Dash::Store
       # Confused that only INFO data is being stored
       Fiveruns::Dash.logger.info "Store http"
       Fiveruns::Dash.logger.info payload
+            
+      # puts payload
+      # puts "---------"
+      # 
+      # coll = DB.collection('payloads')
+      # coll.insert({'raw' => payload.to_fjson})
+      # 
+      # puts "There are #{coll.count()} records. Here they are:"
+      # coll.find().each { |doc| puts doc.inspect }
+      
+      # Do we really need ANOTHER thread?
+      # This process is already threaded (right?)
+      Thread.new(DB, payload) do |db, payload| 
+        db.collection('payloads').insert({'raw' => payload.to_fjson})
+      end
+    rescue
+      puts "ERROR IN STORE_HTTP: #{$!}"
     end    
   end
   module File
@@ -28,8 +51,11 @@ module Fiveruns::Dash::Store
 end
 
 module FiverunsAnalyzer  
-  class Logger   
+  class Logger
+    attr_accessor :db
+       
     def initialize(app)
+      @db = DB
       
       startup_fiveruns
       
@@ -49,18 +75,16 @@ module FiverunsAnalyzer
       else
         # ALWAYS HERE RIGHT NOW
         @app.call(env)
-      end     
-      
-      
+      end        
     end
     
-    def startup_fiveruns
+    def startup_fiveruns      
       Fiveruns::Dash.register_recipe :actionpack, :url => 'http://example.org' do |recipe|
         Fiveruns::Dash.logger.info 'REGISTERING ACTIONPACK RECIPE'
         recipe.time :response_time, :method => 'FiverunsAnalyzer::Logger#call', :mark => true
       end
 
-      Fiveruns::Dash.configure do |config|
+      Fiveruns::Dash.configure do |config|        
         require "actionpack"
         config.add_recipe :actionpack, :url => 'http://example.org'
       end
