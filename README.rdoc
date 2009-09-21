@@ -1,0 +1,19 @@
+=Abstract Analyzer
+
+This is a Rack based analyzer.  It's currently more of a proof of concept than anything else. We'll see where it goes.
+
+==Layout
+
+There's three Rack apps in here right now.
+
+* HelloWorld - just a dummy rack app
+* Couch - Based off of Matt Aimonetti's CouchRest blog post. Manually log requests and responses.
+* Fiveruns - This is where I'd like to be headed. Uses fiveruns-dash-ruby and related recipes to collect data.
+
+==Requirements
+
+gems:
+* mongodb-mongo
+* fiveruns-dash-ruby
+
+In addition you need mongod running on localhost:27017
