@@ -144,7 +144,7 @@ module FiverunsAnalyzer
       end
 
       Fiveruns::Dash.session.interval = interval
-      Fiveruns::Dash.session.start(true)
+      Fiveruns::Dash.session.start
     end
   end
 end  
