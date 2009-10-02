@@ -50,7 +50,7 @@ class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
   end
   
   def test_mongo_data_store
-    coll = app.db.collection('payloads')
+    coll = app.db.collection('actionpack-response_time')
     coll.clear
     
     5.times do
@@ -58,27 +58,59 @@ class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
     end
     
     sleep Fiveruns::Dash.session.reporter.interval
-    
-    assert 1 <= coll.count
-    
-    
-    # coll.find().each { |row| puts row.class; puts row.inspect; puts "-------" }
+
+    #coll.find().each { |row| puts row.class; puts row.inspect; puts "-------" }
     
     total_invocations = 0
     
     coll.find().each do |row|
-      raw = row[:raw]
-      if raw
-        values = raw[:values]
-        if values
-          invocations = values[:invocations]
-          total_invocations += invocations
-        end
+      values = row[:values]
+      if values
+        invocations = values[:invocations]
+        total_invocations += invocations
       end
     end
 
     assert 5, total_invocations
   end
   
+  def test_mongo_data_store_with_multiple_metrics
+    coll1 = app.db.collection('actionpack-response_time')
+    coll1.clear
+    
+    coll2 = app.db.collection('actionpack-another_response_time')
+    coll2.clear
+    
+    10.times do
+      get "/foo"
+    end
+    
+    sleep Fiveruns::Dash.session.reporter.interval
+
+    #coll.find().each { |row| puts row.class; puts row.inspect; puts "-------" }
+    
+    total_coll1_invocations = 0
+    
+    coll1.find().each do |row|
+      values = row[:values]
+      if values
+        invocations = values[:invocations]
+        total_coll1_invocations += invocations
+      end
+    end
+    
+    total_coll2_invocations = 0
+    
+    coll2.find().each do |row|
+      values = row[:values]
+      if values
+        invocations = values[:invocations]
+        total_coll2_invocations += invocations
+      end
+    end
+
+    assert 5, total_coll1_invocations
+    assert 5, total_coll2_invocations
+  end
     
 end

@@ -22,7 +22,6 @@ module FiverunsDashSessionExtensions
     reporter.interval = value
   end  
 end
-
 Fiveruns::Dash::Session.__send__ :include, FiverunsDashSessionExtensions
 
 # module Fiveruns::Dash
@@ -33,42 +32,45 @@ Fiveruns::Dash::Session.__send__ :include, FiverunsDashSessionExtensions
 #   end      
 # end
 
+# I need at the data hash from the Payload
+module FiverunsDashPayloadExtensions
+  attr_reader :data
+end
+Fiveruns::Dash::Payload.__send__ :include, FiverunsDashPayloadExtensions
 
 module Fiveruns::Dash::Store::Mongo
   # SET IN update.rb
   # On config start set :url param to some kind of mongo url
 
-  def store_mongo(*uris)
-    puts "URIS: #{uris}"
-    
+  def store_mongo(*uris)    
     Fiveruns::Dash.logger.info "Attempting to send #{payload.class}"
-    # if (uri = uris.detect { |u| transmit_to(add_path_to(u)) })
-    #   Fiveruns::Dash.logger.info "Sent #{payload.class} to #{uri}"
-    #   uri
-    # else
-    #   Fiveruns::Dash.logger.warn "Could not send #{payload.class}"
-    # end
   
     # NOW BREAK IT DOWN
     # Each metric gets it's own doc
-    # Use upsert (hopefully with incrementers)
-    #
-    # NOTE: What's the diff between an InfoPayload and a DataPayload
-    if payload.class.to_s =~ /Fiveruns::Dash::(Data|Info)Payload/
-      DB.collection('payloads').insert({'raw' => payload.to_fjson})
-      Fiveruns::Dash.logger.info "Sent #{payload.class} to #{DB}"
+    # Use upsert (hopefully with incrementers)  
+    if payload.is_a? Fiveruns::Dash::DataPayload
+      data = payload.data
+
+      data.each do |d|
+        recipe_name = d[:recipe_name]
+        name = d[:name]
+        storage_name = "#{recipe_name}-#{name}"
+        
+        DB.collection(storage_name).insert(data)
+        Fiveruns::Dash.logger.info "Sent #{payload.class} to #{DB}"
+      end
     else
-      raise "Payload Not Currently Supported"
+      raise "Payload of type #{payload.class} Not Currently Supported"
     end
-    
-    # Mongo db post on real time analytics
   rescue
     puts "ERROR IN STORE_MONGO: #{$!}"
-    Fiveruns::Dash.logger.warn "Could not send #{payload.class}"
+    Fiveruns::Dash.logger.warn "Could not send #{payload.class}: #{$!}"
   end
 end
 
-module FiverunsDashUpdateExtensions  
+module FiverunsDashUpdateExtensions
+  include Fiveruns::Dash::Store::Mongo
+    
   private
   def storage_method_for_with_mongo(scheme)
     if scheme =~ /^mongo/ 
@@ -84,10 +86,10 @@ end
 
 # I think I like the duck punching better than this :/
 # Open to rewrites
-Fiveruns::Dash::Update.__send__ :include, Fiveruns::Dash::Store::Mongo
 Fiveruns::Dash::Update.__send__ :include, FiverunsDashUpdateExtensions
 Fiveruns::Dash::Update.__send__ :alias_method, :storage_method_for_without_mongo, :storage_method_for
 Fiveruns::Dash::Update.__send__ :alias_method, :storage_method_for, :storage_method_for_with_mongo
+
 
 # module Fiveruns::Dash
 #   class Update
@@ -136,10 +138,10 @@ module FiverunsAnalyzer
       Fiveruns::Dash.register_recipe :actionpack, :url => 'http://example.org' do |recipe|
         Fiveruns::Dash.logger.info 'REGISTERING ACTIONPACK RECIPE'
         recipe.time :response_time, :method => 'FiverunsAnalyzer::Logger#call', :mark => true
+        recipe.time :another_response_time, :method => 'FiverunsAnalyzer::Logger#call', :mark => true
       end
 
       Fiveruns::Dash.configure do |config|        
-        require "actionpack"
         config.add_recipe :actionpack, :url => 'http://example.org'
       end
 
