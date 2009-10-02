@@ -12,7 +12,7 @@ class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
   end
   
   def app
-    MyApp.new(HelloApp.new)
+    MyApp.new(HelloApp.new, 1)
   end
 
   # MAKE SURE MONGO IS RUNNING ON localhost:27017
@@ -20,12 +20,6 @@ class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
     get "/foo"
     
     assert_not_nil app.db
-    
-    # coll = db.collection('test')
-    # coll.clear
-    # 3.times { |i| coll.insert({'a' => i+1}) }
-    # puts "There are #{coll.count()} records. Here they are:"
-    # coll.find().each { |doc| puts doc.inspect }
   end
 
   def test_success
@@ -42,6 +36,8 @@ class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
     # Not really sure what this is all about, but I got it to work
     data = Fiveruns::Dash.session.data
     
+    y data.first[:values]
+    
     assert_equal 5, data.first[:values].first[:invocations]
     
     7.times do
@@ -57,18 +53,31 @@ class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
     coll = app.db.collection('payloads')
     coll.clear
     
-    sleep 10
-    
     5.times do
       get "/foo"
     end
     
-    # Trying to test threaded processes is a beast
-    # Fiveruns threads it's storing, and thus the db storages is threaded
-    # This 60 second sleep is about the right amount for the 5 requests
-    sleep 60
+    sleep Fiveruns::Dash.session.reporter.interval
     
-    assert_equal 5, coll.count
+    assert 1 <= coll.count
+    
+    
+    # coll.find().each { |row| puts row.class; puts row.inspect; puts "-------" }
+    
+    total_invocations = 0
+    
+    coll.find().each do |row|
+      raw = row[:raw]
+      if raw
+        values = raw[:values]
+        if values
+          invocations = values[:invocations]
+          total_invocations += invocations
+        end
+      end
+    end
+
+    assert 5, total_invocations
   end
   
     
