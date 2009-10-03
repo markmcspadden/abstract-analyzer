@@ -112,5 +112,19 @@ class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
     assert 5, total_coll1_invocations
     assert 5, total_coll2_invocations
   end
+  
+  # Just trying to ensure Dash is sending info when requests aren't being made
+  def test_frequency_of_mongo_data_inserts
+    coll = app.db.collection('actionpack-response_time')
+    coll.clear
+    
+    5.times do
+      get "/foo"
+    end
+    
+    sleep Fiveruns::Dash.session.reporter.interval*20
+
+    assert 20 <= coll.count
+  end
     
 end
