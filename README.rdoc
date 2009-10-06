@@ -15,5 +15,6 @@ There's three Rack apps in here right now.
 gems:
 * mongodb-mongo
 * fiveruns-dash-ruby
+* usher
 
 In addition you need mongod running on localhost:27017
