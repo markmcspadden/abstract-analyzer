@@ -4,7 +4,6 @@ class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
   class HelloApp < HelloWorld
-
   end
 
   class MyApp < FiverunsAnalyzer::Logger

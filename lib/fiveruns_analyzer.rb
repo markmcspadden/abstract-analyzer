@@ -57,6 +57,7 @@ module Fiveruns::Dash::Store::Mongo
         storage_name = "#{recipe_name}-#{name}"
         d[:created_at] = Time.now
         
+        # TODO: Use upsert to handle cluser wide implementations
         DB.collection(storage_name).insert(d)
         Fiveruns::Dash.logger.info "Sent #{payload.class} to #{DB}"
       end

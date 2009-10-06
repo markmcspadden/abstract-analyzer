@@ -10,7 +10,7 @@ class ViewTest < Test::Unit::TestCase
   end
   
   def app
-    MyApp.new(HelloApp.new)
+    MyApp.new(HelloApp.new, 'testpack-response_time')
   end
   
   def test_index

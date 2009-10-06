@@ -9,7 +9,9 @@ module AbstractAnalyzer
       DB
     end
 
-    def initialize(app)    
+    attr_accessor :collection
+    def initialize(app, collection = nil)
+      @collection = collection.to_s    
       @app = app
     end
 
@@ -80,10 +82,10 @@ module AbstractAnalyzer
   class TimeView < ViewBase
     # Create some kind of index view
     get "/index" do
-      coll = db.collection('actionpack-response_time')
-      
+      coll = db.collection(@collection)
+
       lead = "Listing #{coll.count} Response Time Rollups"
-      
+    
       table = Table(:column_names => ["Time", "Metric Name", "Number of Calls", "Measurement"])
 
       total_invocations = 0
