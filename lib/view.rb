@@ -4,7 +4,7 @@ require 'ruport'
 DB = Mongo::Connection.new('localhost', 27017).db('fiveruns-analyzer-db')      
 
 module AbstractAnalyzer
-  class Base
+  class ViewBase
     def db
       DB
     end
@@ -77,7 +77,7 @@ module AbstractAnalyzer
     end
   end # Base
   
-  class TimeView < Base
+  class TimeView < ViewBase
     # Create some kind of index view
     get "/index" do
       coll = db.collection('actionpack-response_time')
