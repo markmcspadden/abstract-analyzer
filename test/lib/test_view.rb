@@ -4,21 +4,14 @@ class ViewTest < Test::Unit::TestCase
   include Rack::Test::Methods
   
   class MyApp < AbstractAnalyzer::View
-    # enable :sessions
-    # 
-    # get "/set1" do
-    #   session[:hello] = "WIN!!"
-    #   "Setting session"
-    # end
-    # 
-    # get "/set2" do
-    #   session[:hello] = "WIN AGAIN!!"
-    #   "Setting session"
-    # end
-    # 
-    # get "/get" do
-    #   "Session: #{session[:hello]}"
-    # end
+    get "/index" do
+      #"Session: #{session[:hello]}"
+      "Hi!"
+    end
+    
+    get "/show" do
+      "Show me."
+    end
   end
   
   def app
@@ -29,7 +22,14 @@ class ViewTest < Test::Unit::TestCase
     get "/index"
     
     assert last_response.ok?
-    assert_equal last_response.body, "Hello world!"
+    assert_equal last_response.body, "Hi!"
+  end
+  
+  def test_show
+    get "/show"
+    
+    assert last_response.ok?
+    assert_equal last_response.body, "Show me."
   end
   
 end
