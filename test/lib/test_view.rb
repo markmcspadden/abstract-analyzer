@@ -1,7 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-require 'ruport'
-
 class ViewTest < Test::Unit::TestCase
   include Rack::Test::Methods
   
@@ -9,7 +7,7 @@ class ViewTest < Test::Unit::TestCase
   end
   
   def app
-    MyApp.new
+    MyApp.new(HelloApp.new)
   end
   
   def test_index

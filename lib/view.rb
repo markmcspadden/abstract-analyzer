@@ -1,9 +1,16 @@
+require 'usher'
+require 'ruport'
+
 DB = Mongo::Connection.new('localhost', 27017).db('fiveruns-analyzer-db')      
 
 module AbstractAnalyzer
   class Base
     def db
       DB
+    end
+
+    def initialize(app)
+      
     end
 
     def call(env)
