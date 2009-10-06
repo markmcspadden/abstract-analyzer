@@ -8,7 +8,18 @@ class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
   end
 
   class MyApp < FiverunsAnalyzer::Logger
-
+    
+    Fiveruns::Dash.register_recipe :testpack, :url => 'http://example.org' do |recipe|
+      Fiveruns::Dash.logger.info 'REGISTERING ACTIONPACK RECIPE'
+      recipe.time :response_time, :method => 'FiverunsAnalyzer::Logger#call', :mark => true
+      recipe.time :another_response_time, :method => 'FiverunsAnalyzer::Logger#call', :mark => true
+    end
+    
+    def initialize(*)
+      @recipes = [{:name => :testpack, :url => 'http://example.org'}]
+      super
+    end
+    
   end
   
   def app
@@ -50,7 +61,7 @@ class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
   end
   
   def test_mongo_data_store
-    coll = app.db.collection('actionpack-response_time')
+    coll = app.db.collection('testpack-response_time')
     coll.clear
     
     5.times do
@@ -75,10 +86,10 @@ class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
   end
   
   def test_mongo_data_store_with_multiple_metrics
-    coll1 = app.db.collection('actionpack-response_time')
+    coll1 = app.db.collection('testpack-response_time')
     coll1.clear
     
-    coll2 = app.db.collection('actionpack-another_response_time')
+    coll2 = app.db.collection('testpack-another_response_time')
     coll2.clear
     
     10.times do
@@ -115,7 +126,7 @@ class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
   
   # Just trying to ensure Dash is sending info when requests aren't being made
   def test_frequency_of_mongo_data_inserts
-    coll = app.db.collection('actionpack-response_time')
+    coll = app.db.collection('testpack-response_time')
     coll.clear
     
     5.times do

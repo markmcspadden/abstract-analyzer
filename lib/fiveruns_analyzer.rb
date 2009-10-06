@@ -136,14 +136,13 @@ module FiverunsAnalyzer
       
       ENV['DASH_UPDATE'] = "mongo://db"
            
-      Fiveruns::Dash.register_recipe :actionpack, :url => 'http://example.org' do |recipe|
-        Fiveruns::Dash.logger.info 'REGISTERING ACTIONPACK RECIPE'
-        recipe.time :response_time, :method => 'FiverunsAnalyzer::Logger#call', :mark => true
-        recipe.time :another_response_time, :method => 'FiverunsAnalyzer::Logger#call', :mark => true
-      end
+
 
       Fiveruns::Dash.configure do |config|        
-        config.add_recipe :actionpack, :url => 'http://example.org'
+        # config.add_recipe :actionpack, :url => 'http://example.org'
+        @recipes.each do |r|
+          config.add_recipe r[:name], r[:url]
+        end
       end
 
       Fiveruns::Dash.session.interval = interval
