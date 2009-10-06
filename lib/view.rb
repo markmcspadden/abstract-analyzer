@@ -9,8 +9,8 @@ module AbstractAnalyzer
       DB
     end
 
-    def initialize(app)
-      
+    def initialize(app)    
+      @app = app
     end
 
     def call(env)
