@@ -14,9 +14,19 @@ module AbstractAnalyzer
     end
 
     def call(env)
-      # TODO: What happens if the method isn't found???
-      content = self.__send__ "[#{env["REQUEST_METHOD"].to_s.downcase}] #{env["PATH_INFO"]}"
-      [200, {"Content-Type" => "text/plain"}, content]
+      method_name = "[#{env["REQUEST_METHOD"].to_s.downcase}] #{env["PATH_INFO"]}"
+
+      # This has got to be not good for performance
+      # Consider using the PATH_INFO var instead      
+      if self.respond_to?(method_name)
+        content = self.__send__(method_name)
+        [200, {"Content-Type" => "text/plain"}, content]
+      else
+        # This is from Rails metal...but can't get it to work
+        # [status, headers, response_body]
+        # BUT THIS IS NOT RIGHT
+        super
+      end
     end
     
     class << self

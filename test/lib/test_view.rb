@@ -3,6 +3,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 class ViewTest < Test::Unit::TestCase
   include Rack::Test::Methods
   
+  class HelloApp < HelloWorld
+  end
+  
   class MyApp < AbstractAnalyzer::TimeView
   end
   
