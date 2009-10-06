@@ -12,9 +12,12 @@ There's three Rack apps in here right now.
 
 ==Requirements
 
+I hope to trim this down, but for now...
+
 gems:
 * mongodb-mongo
 * fiveruns-dash-ruby
 * usher
+* ruport
 
 In addition you need mongod running on localhost:27017

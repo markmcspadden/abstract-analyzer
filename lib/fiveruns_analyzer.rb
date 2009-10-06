@@ -55,8 +55,9 @@ module Fiveruns::Dash::Store::Mongo
         recipe_name = d[:recipe_name]
         name = d[:name]
         storage_name = "#{recipe_name}-#{name}"
+        d[:created_at] = Time.now
         
-        DB.collection(storage_name).insert(data)
+        DB.collection(storage_name).insert(d)
         Fiveruns::Dash.logger.info "Sent #{payload.class} to #{DB}"
       end
     else

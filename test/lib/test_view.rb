@@ -1,17 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+require 'ruport'
+
 class ViewTest < Test::Unit::TestCase
   include Rack::Test::Methods
   
-  class MyApp < AbstractAnalyzer::View
-    get "/index" do
-      #"Session: #{session[:hello]}"
-      "Hi!"
-    end
-    
-    get "/show" do
-      "Show me."
-    end
+  class MyApp < AbstractAnalyzer::TimeView
   end
   
   def app
@@ -22,7 +16,12 @@ class ViewTest < Test::Unit::TestCase
     get "/index"
     
     assert last_response.ok?
-    assert_equal last_response.body, "Hi!"
+    assert last_response.body.to_s.match(/Listing \d\d* Response Time Rollups/)
+    assert last_response.body.to_s.match(/Total Calls/)
+    assert last_response.body.to_s.match(/Total Time/)    
+    assert last_response.body.to_s.match(/Avg Time per Call/)    
+    
+    puts last_response.body
   end
   
   def test_show
