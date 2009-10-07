@@ -14,7 +14,7 @@ class ViewTest < Test::Unit::TestCase
   end
   
   def test_index
-    get "/index"
+    get "/analytics"
     
     assert last_response.ok?
     assert last_response.body.to_s.match(/Listing \d\d* Response Time Rollups/)

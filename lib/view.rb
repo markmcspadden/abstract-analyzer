@@ -24,10 +24,7 @@ module AbstractAnalyzer
         content = self.__send__(method_name)
         [200, {"Content-Type" => "text/plain"}, content]
       else
-        # This is from Rails metal...but can't get it to work
-        # [status, headers, response_body]
-        # BUT THIS IS NOT RIGHT
-        super
+        @app.call(env)
       end
     end
     
@@ -81,7 +78,7 @@ module AbstractAnalyzer
   
   class TimeView < ViewBase
     # Create some kind of index view
-    get "/index" do
+    get "/analytics" do
       coll = db.collection(@collection)
 
       lead = "Listing #{coll.count} Response Time Rollups"
