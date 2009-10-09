@@ -22,7 +22,7 @@ You can use the DashAnalyzer with any rack app you'd like. Check the tests for a
 
 ===Rails
 
-If Rails is your bag, I've included a middleware implementation of the DashAnalyzer. In a Rails 3 app (currently edge rails) implementing is as easy as:
+If Rails is your bag, I've included a middleware implementation of the DashAnalyzer. In a Rails 3 app (currently edge rails) implementing is pretty easy.
 
 First, this thing isn't a gem yet, so just load the whole thing into lib or somewhere else Rails will see it.
 
