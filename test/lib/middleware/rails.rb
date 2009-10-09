@@ -1,7 +1,7 @@
 # What goes here?
-
+# 
 # require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
 # 
-# class DashAnalyzerTest < Test::Unit::TestCase
+# class RailsTest < Test::Unit::TestCase
 # 
 # end

@@ -9,9 +9,9 @@ require 'fiveruns/dash'
 
 require 'mongo'  
 
-require 'dash_analyzer/dash_extensions'
-require 'dash_analyzer/base'
-require 'dash_analyzer/view'
+require File.dirname(__FILE__) << '/dash_analyzer/dash_extensions'
+require File.dirname(__FILE__) << '/dash_analyzer/base'
+require File.dirname(__FILE__) << '/dash_analyzer/view'
 
 module DashAnalyzer
 
