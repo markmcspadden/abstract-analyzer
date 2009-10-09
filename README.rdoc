@@ -27,7 +27,7 @@ If Rails is your bag, I've included a middleware implementation of the DashAnaly
 First, this thing isn't a gem yet, so just load the whole thing into lib or somewhere else Rails will see it.
 
 Secound, in RAILS_ROOT/config/initializers/middlewares.rb
-<code>
+
   require 'abstract_analyzer/abstract_analyzer'
 
   # Setup the Analyzer DB
@@ -41,12 +41,13 @@ Secound, in RAILS_ROOT/config/initializers/middlewares.rb
   # Use the Analyzer and View middlewares
   ActionController::Dispatcher.middleware.use AbstractAnalyzer::Middleware::Rails::Dash::Analyzer
   ActionController::Dispatcher.middleware.use AbstractAnalyzer::Middleware::Rails::Dash::View
-</code>
+
 
 I'm pretty sure it can be done in Rails 2.3.x but it's not as pretty
 
 ==Props
 
-* Adam Keys for explaining how the dash gems work
 * Carl Lerche and Yehuda Katz for their Extending Rails training at the Lone Star Ruby Conference that planted this seed 
+* The company formally known as Fiveruns for open sourcing their reporter gems
+* Adam Keys for explaining how the Dash gems work
 * The guys a SqueeJee for saying MongoDB enough times to make me try it in something
