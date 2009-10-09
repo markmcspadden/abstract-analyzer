@@ -1,7 +1,10 @@
+# I think I will need this eventually...
+
 # class Fiveruns::Dash::Configuration
 #   attr_accessor :db
 # end
 
+# Allow the Fiveruns::Dash::Session interval to be set
 module FiverunsDashSessionExtensions
   def interval=(value)
     reporter.interval = value
@@ -9,30 +12,19 @@ module FiverunsDashSessionExtensions
 end
 Fiveruns::Dash::Session.__send__ :include, FiverunsDashSessionExtensions
 
-# module Fiveruns::Dash
-#   class Session
-#     def interval=(value)
-#       reporter.interval = value
-#     end
-#   end      
-# end
 
-# I need at the data hash from the Payload
+# Allow direct access to the Fiveruns::Dash::Payload data hash
 module FiverunsDashPayloadExtensions
   attr_reader :data
 end
 Fiveruns::Dash::Payload.__send__ :include, FiverunsDashPayloadExtensions
 
-module Fiveruns::Dash::Store::Mongo
-  # SET IN update.rb
-  # On config start set :url param to some kind of mongo url
-
+# Setup a store_mongo method on Fiveruns::Dash::Store
+# NOTE: I think there is a better way to do this
+module FiverunsDashStoreMongo
   def store_mongo(*uris)    
     Fiveruns::Dash.logger.info "Attempting to send #{payload.class}"
   
-    # NOW BREAK IT DOWN
-    # Each metric gets it's own doc
-    # Use upsert (hopefully with incrementers)  
     if payload.is_a? Fiveruns::Dash::DataPayload
       data = payload.data
 
@@ -50,13 +42,19 @@ module Fiveruns::Dash::Store::Mongo
       raise "Payload of type #{payload.class} Not Currently Supported"
     end
   rescue
-    puts "ERROR IN STORE_MONGO: #{$!}"
     Fiveruns::Dash.logger.warn "Could not send #{payload.class}: #{$!}"
   end
 end
+Fiveruns::Dash::Store.__send__ :extend, FiverunsDashStoreMongo
 
+# Allow Fiveruns::Dash::Update to recognize mongo style urls
+# Yes I think I totally just made up mongo style urls
+# They look like 'mongo://ANYTHING_GOES_HERE_FOR_NOW'
+
+# Also, I think I like the duck punching better than this send/include/send/alias_method mess
+# Open to rewrites
 module FiverunsDashUpdateExtensions
-  include Fiveruns::Dash::Store::Mongo
+  include FiverunsDashStoreMongo
     
   private
   def storage_method_for_with_mongo(scheme)
@@ -66,18 +64,12 @@ module FiverunsDashUpdateExtensions
       storage_method_for_without_mongo(scheme)
     end
   end
-  # alias_method_chain :storage_method_for, :mongo
-  # alias_method :storage_method_for_without_mongo, :storage_method_for
-  # alias_method :storage_method_for, :storage_method_for_with_mongo
 end
-
-# I think I like the duck punching better than this :/
-# Open to rewrites
 Fiveruns::Dash::Update.__send__ :include, FiverunsDashUpdateExtensions
 Fiveruns::Dash::Update.__send__ :alias_method, :storage_method_for_without_mongo, :storage_method_for
 Fiveruns::Dash::Update.__send__ :alias_method, :storage_method_for, :storage_method_for_with_mongo
 
-
+# Duck punched version
 # module Fiveruns::Dash
 #   class Update
 #     include Store::Mongo
