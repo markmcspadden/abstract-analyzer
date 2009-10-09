@@ -15,9 +15,6 @@ require File.dirname(__FILE__) << '/dash_analyzer/view'
 
 module DashAnalyzer
 
-  #DB = Mongo::Connection.new('localhost', 27017).db('fiveruns-analyzer-db')      
-  RAILS_DEFAULT_LOGGER = Logger.new(File.dirname(__FILE__) << "/fiveruns_logger.log")
-
 end
 
 

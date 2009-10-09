@@ -16,24 +16,25 @@ module DashAnalyzer
   # end
   #  
   class Base
-    attr_accessor :db
+    attr_accessor :db, :logger
        
     def initialize(app, dash_interval=60)      
       @db = AbstractAnalyzer.const_get("DB")
+      @logger = AbstractAnalyzer.const_get("LOGGER")
       
       startup_dash(dash_interval)
       
       @app = app
     end
  
-    def call(env)
-      RAILS_DEFAULT_LOGGER.info "CALLING" 
-       
+    def call(env)       
       @app.call(env)       
     end
     
     def startup_dash(interval = 60)
       Fiveruns::Dash.session.reset
+      
+      Fiveruns::Dash.logger = @logger
       
       ENV['DASH_UPDATE'] = "mongo://db"
            

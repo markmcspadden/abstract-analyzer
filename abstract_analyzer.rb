@@ -4,6 +4,11 @@ require File.dirname(__FILE__) << '/lib/middleware'
 
 module AbstractAnalyzer
   
+  # CONSTANTS DB, LOGGER are currently being set and expected
+  
+  # DB = Mongo::Connection.new('localhost', 27017).db('abstract-analyzer-db')      
+  # LOGGER = Logger.new(File.dirname(__FILE__) << "/abstract_analyzer_logger.log")
+  
 end
 
 
