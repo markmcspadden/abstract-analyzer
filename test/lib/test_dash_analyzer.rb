@@ -1,17 +1,14 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
 
-class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
+class DashAnalyzer::BaseTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
-  class HelloApp < HelloWorld
-  end
-
-  class MyApp < FiverunsAnalyzer::Logger
+  class MyApp < DashAnalyzer::Base
     
     Fiveruns::Dash.register_recipe :testpack, :url => 'http://example.org' do |recipe|
       Fiveruns::Dash.logger.info 'REGISTERING ACTIONPACK RECIPE'
-      recipe.time :response_time, :method => 'FiverunsAnalyzer::Logger#call', :mark => true
-      recipe.time :another_response_time, :method => 'FiverunsAnalyzer::Logger#call', :mark => true
+      recipe.time :response_time, :method => 'DashAnalyzer::Base#call', :mark => true
+      recipe.time :another_response_time, :method => 'DashAnalyzer::Base#call', :mark => true
     end
     
     def initialize(*)
@@ -22,7 +19,7 @@ class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
   end
   
   def app
-    MyApp.new(HelloApp.new, 1)
+    MyApp.new(FooApp.new, 1)
   end
 
   # MAKE SURE MONGO IS RUNNING ON localhost:27017
@@ -38,15 +35,14 @@ class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
     assert last_response.ok?
   end
   
-  def test_session_data_store
+  # Should I really be testing Dash internals? I think not.
+  def x_test_session_data_store
     5.times do
       get "/foo"
     end
      
     # Not really sure what this is all about, but I got it to work
     data = Fiveruns::Dash.session.data
-    
-    y data.first[:values]
     
     assert_equal 5, data.first[:values].first[:invocations]
     
@@ -68,8 +64,6 @@ class FiverunsAnalyzer::LoggerTest < Test::Unit::TestCase
     end
     
     sleep Fiveruns::Dash.session.reporter.interval
-
-    #coll.find().each { |row| puts row.class; puts row.inspect; puts "-------" }
     
     total_invocations = 0
     

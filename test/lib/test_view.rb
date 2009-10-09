@@ -1,16 +1,13 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
 
 class ViewTest < Test::Unit::TestCase
   include Rack::Test::Methods
-  
-  class HelloApp < HelloWorld
-  end
   
   class MyApp < AbstractAnalyzer::TimeView
   end
   
   def app
-    MyApp.new(HelloApp.new, 'testpack-response_time')
+    MyApp.new(FooApp.new, 'testpack-response_time')
   end
   
   def test_index

@@ -114,8 +114,8 @@ Fiveruns::Dash::Update.__send__ :alias_method, :storage_method_for, :storage_met
 
 
 
-module FiverunsAnalyzer  
-  class Logger
+module DashAnalyzer  
+  class Base
     attr_accessor :db
        
     def initialize(app, dash_interval=60)
