@@ -1,14 +1,8 @@
 =Abstract Analyzer
 
-This is a Rack based analyzer.  It's currently more of a proof of concept than anything else. We'll see where it goes.
+This is a Rack based analyzer. The idea is to use different methods and libraries to track requests on Rack app and report those back in some simple views.
 
-==Layout
-
-There's three Rack apps in here right now.
-
-* HelloWorld - just a dummy rack app
-* Couch - Based off of Matt Aimonetti's CouchRest blog post. Manually log requests and responses.
-* Fiveruns - This is where I'd like to be headed. Uses fiveruns-dash-ruby and related recipes to collect data.
+I'm starting with a Fiveruns Dash analyzer that reports to a MongoDB instance. Reporting actually be it's own small Rack app and for the time being, will mostly text based.
 
 ==Requirements
 
@@ -20,4 +14,39 @@ gems:
 * usher
 * ruport
 
-In addition you need mongod running on localhost:27017
+In addition for the tests to pass, you need mongod running on localhost:27017
+
+==Implementation
+
+You can use the DashAnalyzer with any rack app you'd like. Check the tests for an example.
+
+===Rails
+
+If Rails is your bag, I've included a middleware implementation of the DashAnalyzer. In a Rails 3 app (currently edge rails) implementing is as easy as:
+
+First, this thing isn't a gem yet, so just load the whole thing into lib or somewhere else Rails will see it.
+
+Secound, in RAILS_ROOT/config/initializers/middlewares.rb
+<code>
+  require 'abstract_analyzer/abstract_analyzer'
+
+  # Setup the Analyzer DB
+  abstract_analyzer_db = Mongo::Connection.new('localhost', 27017).db('aa-rails-dash-analyzer-db')
+  AbstractAnalyzer.const_set("DB", abstract_analyzer_db)
+
+  # Setup the Analyzer LOGGER
+  abstract_logger = Logger.new("#{RAILS_ROOT}/log/abstract_analyzer_logger.log")
+  AbstractAnalyzer.const_set("LOGGER", abstract_logger)
+
+  # Use the Analyzer and View middlewares
+  ActionController::Dispatcher.middleware.use AbstractAnalyzer::Middleware::Rails::Dash::Analyzer
+  ActionController::Dispatcher.middleware.use AbstractAnalyzer::Middleware::Rails::Dash::View
+</code>
+
+I'm pretty sure it can be done in Rails 2.3.x but it's not as pretty
+
+==Props
+
+* Adam Keys for explaining how the dash gems work
+* Carl Lerche and Yehuda Katz for their Extending Rails training at the Lone Star Ruby Conference that planted this seed 
+* The guys a SqueeJee for saying MongoDB enough times to make me try it in something
