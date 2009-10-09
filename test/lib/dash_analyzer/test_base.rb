@@ -4,6 +4,7 @@ class BaseTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
   class MyApp < DashAnalyzer::Base
+        
     Fiveruns::Dash.register_recipe :testpack, :url => 'http://example.org' do |recipe|
       Fiveruns::Dash.logger.info 'REGISTERING ACTIONPACK RECIPE'
       recipe.time :response_time, :method => 'DashAnalyzer::Base#call', :mark => true

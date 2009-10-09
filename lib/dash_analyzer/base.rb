@@ -18,8 +18,8 @@ module DashAnalyzer
   class Base
     attr_accessor :db
        
-    def initialize(app, dash_interval=60)
-      @db = DB
+    def initialize(app, dash_interval=60)      
+      @db = AbstractAnalyzer.const_get("DB")
       
       startup_dash(dash_interval)
       
@@ -37,7 +37,9 @@ module DashAnalyzer
       
       ENV['DASH_UPDATE'] = "mongo://db"
            
-      Fiveruns::Dash.configure do |config|        
+      Fiveruns::Dash.configure do |config|
+        config.db = db
+                
         @recipes.each do |r|
           config.add_recipe r[:name], r[:url]
         end

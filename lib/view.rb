@@ -1,7 +1,9 @@
+require 'usher'
+
 module AbstractAnalyzer
   class View
     def db
-      DB
+      AbstractAnalyzer.const_get("DB")
     end
 
     attr_accessor :collection

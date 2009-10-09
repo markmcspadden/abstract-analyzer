@@ -1,8 +1,7 @@
-# I think I will need this eventually...
-
-# class Fiveruns::Dash::Configuration
-#   attr_accessor :db
-# end
+# Setup db to receive rollups
+class Fiveruns::Dash::Configuration
+  attr_accessor :db
+end
 
 # Allow the Fiveruns::Dash::Session interval to be set
 module FiverunsDashSessionExtensions
@@ -21,7 +20,7 @@ Fiveruns::Dash::Payload.__send__ :include, FiverunsDashPayloadExtensions
 
 # Setup a store_mongo method on Fiveruns::Dash::Store
 # NOTE: I think there is a better way to do this
-module FiverunsDashStoreMongo
+module Fiveruns::Dash::Store::Mongo
   def store_mongo(*uris)    
     Fiveruns::Dash.logger.info "Attempting to send #{payload.class}"
   
@@ -35,8 +34,8 @@ module FiverunsDashStoreMongo
         d[:created_at] = Time.now
         
         # TODO: Use upsert to handle cluser wide implementations
-        DB.collection(storage_name).insert(d)
-        Fiveruns::Dash.logger.info "Sent #{payload.class} to #{DB}"
+        Fiveruns::Dash.session.configuration.db.collection(storage_name).insert(d)
+        Fiveruns::Dash.logger.info "Sent #{payload.class} to #{Fiveruns::Dash.session.configuration.db}"
       end
     else
       raise "Payload of type #{payload.class} Not Currently Supported"
@@ -45,7 +44,6 @@ module FiverunsDashStoreMongo
     Fiveruns::Dash.logger.warn "Could not send #{payload.class}: #{$!}"
   end
 end
-Fiveruns::Dash::Store.__send__ :extend, FiverunsDashStoreMongo
 
 # Allow Fiveruns::Dash::Update to recognize mongo style urls
 # Yes I think I totally just made up mongo style urls
@@ -54,7 +52,7 @@ Fiveruns::Dash::Store.__send__ :extend, FiverunsDashStoreMongo
 # Also, I think I like the duck punching better than this send/include/send/alias_method mess
 # Open to rewrites
 module FiverunsDashUpdateExtensions
-  include FiverunsDashStoreMongo
+  include Fiveruns::Dash::Store::Mongo
     
   private
   def storage_method_for_with_mongo(scheme)
