@@ -22,7 +22,7 @@ You can use the DashAnalyzer with any rack app you'd like. Check the tests for a
 
 ===Rails
 
-If Rails is your bag, I've included a middleware implementation of the DashAnalyzer. In a Rails 3 app (currently edge rails) implementing is pretty easy.
+If Rails is your bag, I've included a middleware implementation of the DashAnalyzer. Implementing is pretty easy.
 
 First, this thing isn't a gem yet, so just load the whole thing into lib or somewhere else Rails will see it.
 
@@ -42,8 +42,14 @@ Secound, in RAILS_ROOT/config/initializers/middlewares.rb
   ActionController::Dispatcher.middleware.use AbstractAnalyzer::Middleware::Rails::Dash::Analyzer
   ActionController::Dispatcher.middleware.use AbstractAnalyzer::Middleware::Rails::Dash::View
 
+Third, make sure you actually have a mongo db running on localhost:27017 or change the connection accordingly ;)
 
-I'm pretty sure it can be done in Rails 2.3.x but it's not as pretty
+==Todo
+
+* Basic html views
+* Implementing reports for Non-time based metrics
+* Non-Rails middlewares?
+* Non-Dash implementations?
 
 ==Props
 
