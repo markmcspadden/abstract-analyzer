@@ -4,6 +4,7 @@ require 'logger'
 
 require 'rubygems' # I know I know...
 
+
 gem 'fiveruns-dash-ruby' # Put its path first
 require 'fiveruns/dash'
 

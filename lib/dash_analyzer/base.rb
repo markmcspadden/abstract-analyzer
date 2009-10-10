@@ -32,6 +32,8 @@ module DashAnalyzer
     end
     
     def startup_dash(interval = 60)
+      return if Fiveruns::Dash.session.reporter.started?
+      
       Fiveruns::Dash.session.reset
       
       Fiveruns::Dash.logger = @logger

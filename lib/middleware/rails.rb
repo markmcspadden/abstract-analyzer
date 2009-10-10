@@ -1,3 +1,18 @@
+# TODO: Figure out what to do with these.
+# They already be loaded if it's actually in a Rails project
+# But if it's not, we'd hate to load all this mess.
+
+RAILS_ROOT = File.dirname(__FILE__) unless defined?(RAILS_ROOT)
+RAILS_DEFAULT_LOGGER = Logger.new(File.dirname(__FILE__) << "/middleware_rails_dash.log") unless defined?(RAILS_DEFAULT_LOGGER)
+gem 'rails'
+gem 'activesupport'
+gem 'activerecord'
+gem 'actionpack'
+require 'action_controller'
+require 'action_controller/base'
+
+
+
 require File.dirname(__FILE__) << '/rails/dash'
 
 module AbstractAnalyzer
