@@ -8,6 +8,7 @@ require "rack/test"
 require File.dirname(__FILE__) << "/../lib/abstract_analyzer"
 
 # Create a test mongo db
+AbstractAnalyzer.const_set("STORE", "mongoDB")
 test_mongo_db = Mongo::Connection.new('localhost', 27017).db('test-dash-analyzer-db')
 AbstractAnalyzer.const_set("DB", test_mongo_db)
 

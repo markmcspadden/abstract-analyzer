@@ -15,12 +15,14 @@ module DashAnalyzer
   #   end 
   # end
   #  
-  class Base
+  class Base    
     attr_accessor :db, :logger
        
-    def initialize(app, dash_interval=60)      
+    def initialize(app, dash_interval=60)            
       @db = AbstractAnalyzer.const_get("DB")
       @logger = AbstractAnalyzer.const_get("LOGGER")
+      
+      
       
       startup_dash(dash_interval)
       
