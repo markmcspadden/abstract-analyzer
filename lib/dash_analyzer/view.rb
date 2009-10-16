@@ -50,7 +50,7 @@ module DashAnalyzer
           get "/analytics/show/#{name}" do
             coll = db.collection(name)
 
-            lead = "Listing #{coll.count} #{name.to_s.titlecase} Rollups"
+            lead = "Listing #{coll.count} #{name.to_s.titlecase} Rollups in the Last Hour"
     
             table = Table(:column_names => ["Time", "Metric Name", "Number of Calls", "Total Time"])
 
@@ -58,7 +58,7 @@ module DashAnalyzer
             total_values = 0.0
 
             # TODO: Reverse this collection
-            coll.find().each do |row|
+            coll.find({:created_at => {:$gte => Time.now.advance(:hours => -1)}}, {:sort => {:created_at => Mongo::DESCENDING}}).each do |row|
               values = row["values"]
         
               # Why is this an array
