@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../test_helper')
 
+setup_mongodb
+
 class ViewTest < Test::Unit::TestCase
   include Rack::Test::Methods
   

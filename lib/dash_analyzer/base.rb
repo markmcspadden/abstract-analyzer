@@ -16,13 +16,11 @@ module DashAnalyzer
   # end
   #  
   class Base    
-    attr_accessor :db, :logger
+    attr_accessor :db, :logger, :recipes
        
     def initialize(app, dash_interval=60)            
       @db = AbstractAnalyzer.const_get("DB")
       @logger = AbstractAnalyzer.const_get("LOGGER")
-      
-      
       
       startup_dash(dash_interval)
       
@@ -40,7 +38,11 @@ module DashAnalyzer
       
       Fiveruns::Dash.logger = @logger
       
-      ENV['DASH_UPDATE'] = "mongo://db"
+      ENV['DASH_UPDATE'] =  case AbstractAnalyzer.const_get("STORE").to_s.downcase
+                              when "activerecord": "activerecord://db"
+                              when "mongodb": "mongo://db"
+                              else "mongo://db"
+                            end
            
       Fiveruns::Dash.configure do |config|
         config.db = db
