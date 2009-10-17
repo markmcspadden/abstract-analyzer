@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) << '/middleware/rails'
 
-module AbstractAnalzyer
+module AbstractAnalyzer
   module Middleware
   
   end
