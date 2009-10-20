@@ -1,0 +1,6 @@
+test/*.log
+lib/*.log
+lib/middlewares/*.log
+lib/middlewares/*.db
+*.db
+*.log
