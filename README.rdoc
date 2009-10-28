@@ -24,11 +24,15 @@ You can use the DashAnalyzer with any rack app you'd like. Check the tests for a
 
 If Rails is your bag, I've included a middleware implementation of the DashAnalyzer. Implementing is pretty easy.
 
-First, this thing isn't a gem yet, so just load the whole thing into lib or somewhere else Rails will see it.
+First, require the gem in RAILS_ROOT/config/environment.rb:
 
-Secound, in RAILS_ROOT/config/initializers/middlewares.rb
+  Rails::Initializer.run do |config|
+    # .....
+    config.gem 'abstract_analyzer', :version => '>0.1.0'
+    # .....
+  end
 
-  require 'abstract_analyzer/abstract_analyzer'
+Second, in RAILS_ROOT/config/initializers/middlewares.rb
 
   # Setup the Analyzer DB
   abstract_analyzer_db = Mongo::Connection.new('localhost', 27017).db('aa-rails-dash-analyzer-db')
