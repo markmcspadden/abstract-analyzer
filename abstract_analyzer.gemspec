@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
      "test/lib/test_middleware.rb",
      "test/test_helper.rb"
   ]
-  s.homepage = %q{http://github.com/garlandgroup/abstract-analyzer}
+  s.homepage = %q{http://github.com/markmcspadden/abstract-analyzer}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}

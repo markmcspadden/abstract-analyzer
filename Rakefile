@@ -7,7 +7,7 @@ begin
     gem.name = "abstract_analyzer"
     gem.summary = %Q{A rack based app analyzer}
     gem.email = "markmcspadden@gmail.com"
-    gem.homepage = "http://github.com/garlandgroup/abstract-analyzer"
+    gem.homepage = "http://github.com/markmcspadden/abstract-analyzer"
     gem.authors = ["Mark McSpadden"]
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
