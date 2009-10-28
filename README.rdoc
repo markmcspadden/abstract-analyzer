@@ -57,3 +57,7 @@ Third, make sure you actually have a mongo db running on localhost:27017 or chan
 * The company formally known as Fiveruns for open sourcing their reporter gems
 * Adam Keys for explaining how the Dash gems work
 * The guys a SqueeJee for saying MongoDB enough times to make me try it in something
+
+==License
+
+See LICENSE

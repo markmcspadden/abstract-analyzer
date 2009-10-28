@@ -4,3 +4,4 @@ lib/middlewares/*.log
 lib/middlewares/*.db
 *.db
 *.log
+pkg

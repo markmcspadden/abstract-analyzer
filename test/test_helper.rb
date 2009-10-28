@@ -5,7 +5,7 @@ require "autotest"
 
 require "rack/test"
 
-require File.dirname(__FILE__) << "/../abstract_analyzer"
+require File.dirname(__FILE__) << "/../lib/abstract_analyzer"
 
 # Create a test mongo db
 test_mongo_db = Mongo::Connection.new('localhost', 27017).db('test-dash-analyzer-db')
