@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{abstract_analyzer}
-  s.version = "0.0.0"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mark McSpadden"]
@@ -19,6 +19,8 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION.yml",
+     "abstract_analyzer.gemspec",
+     "lib/LICENSE",
      "lib/abstract_analyzer.rb",
      "lib/dash_analyzer.rb",
      "lib/dash_analyzer/base.rb",
