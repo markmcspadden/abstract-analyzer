@@ -45,6 +45,13 @@ module DashAnalyzer
     
     # Use the collection names to create views
     def setup_show
+      case AbstractAnalyzer.store.to_s.downcase
+        when "activerecord": ar_show
+        else mongo_show
+      end
+    end
+    
+    def mongo_show
       db.collection_names.each do |name|
         self.class.class_eval do
           get "/analytics/show/#{name}" do
@@ -82,7 +89,49 @@ module DashAnalyzer
             [lead, results, table.to_s].join("\n")
           end
         end
-      end
+      end      
+    end
+    
+    def ar_show
+      puts "AR SHOW"
+      db.collection_names.each do |name|
+        self.class.class_eval do
+          get "/analytics/show/#{name}" do
+            coll = db.collection(name)
+
+            lead = "Listing #{coll.count} #{name.to_s.titlecase} Rollups in the Last Hour"
+    
+            table = Table(:column_names => ["Time", "Metric Name", "Number of Calls", "Total Time"])
+
+            total_invocations = 0
+            total_values = 0.0
+
+            # TODO: Reverse this collection
+            coll.find({:created_at => {:$gte => Time.now.advance(:hours => -1)}}, {:sort => {:created_at => Mongo::DESCENDING}}).each do |row|
+              values = row["values"]
+        
+              # Why is this an array
+              if values && !values.empty?
+                value = values.first["value"]
+                invocations = values.first["invocations"]
+          
+                total_values = value.to_f
+                total_invocations += invocations.to_i
+              end
+        
+              table << [row["created_at"], row["description"], invocations.to_i, value.to_f]
+            end
+      
+            results = []
+            results << "Total Calls: #{total_invocations}"
+            results << "Total Time: #{total_values} seconds"
+            results << "Avg Time per Call: #{total_values/total_invocations.to_f} seconds"
+            results = results.join("\n")
+
+            [lead, results, table.to_s].join("\n")
+          end
+        end
+      end      
     end
     
   end

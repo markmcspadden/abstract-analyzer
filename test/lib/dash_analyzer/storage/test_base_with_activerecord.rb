@@ -5,8 +5,7 @@ setup_activerecord
 class BaseTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
-  class MyApp < DashAnalyzer::Base
-        
+  class MyApp < DashAnalyzer::Base          
     Fiveruns::Dash.register_recipe :testpack, :url => 'http://example.org' do |recipe|
       Fiveruns::Dash.logger.info 'REGISTERING ACTIONPACK RECIPE'
       recipe.time :response_time, :method => 'DashAnalyzer::Base#call', :mark => true
@@ -21,10 +20,6 @@ class BaseTest < Test::Unit::TestCase
   
   def app
     MyApp.new(FooApp.new, 1)
-  end
-  
-  def setup
-    setup_activerecord
   end
   
   def teardown
@@ -55,11 +50,11 @@ class BaseTest < Test::Unit::TestCase
     eval <<-EOC
       class DeleteMe < ActiveRecord::Base; end
     EOC
-    
-    assert app.db.connected?
-    
+
     # And now delete the table
     app.db.connection.execute("drop table delete_mes;")
+    
+    assert app.db.connected?
   end
 
   def test_success

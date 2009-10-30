@@ -3,7 +3,7 @@ require 'usher'
 module AbstractAnalyzer
   class View
     def db
-      AbstractAnalyzer.const_get("DB")
+      AbstractAnalyzer.db
     end
 
     attr_accessor :collection

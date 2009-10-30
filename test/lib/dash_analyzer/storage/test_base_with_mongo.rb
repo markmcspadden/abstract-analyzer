@@ -1,12 +1,13 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../../test_helper')
 
+setup_mongodb
+
 class BaseTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
-  class MyApp < DashAnalyzer::Base
-        
+  class MyApp < DashAnalyzer::Base        
     Fiveruns::Dash.register_recipe :testpack, :url => 'http://example.org' do |recipe|
-      Fiveruns::Dash.logger.info 'REGISTERING ACTIONPACK RECIPE'
+      Fiveruns::Dash.logger.info 'REGISTERING TESTPACK RECIPE'
       recipe.time :response_time, :method => 'DashAnalyzer::Base#call', :mark => true
       recipe.time :another_response_time, :method => 'DashAnalyzer::Base#call', :mark => true
     end
@@ -42,19 +43,19 @@ class BaseTest < Test::Unit::TestCase
       get "/foo"
     end
     
-    sleep Fiveruns::Dash.session.reporter.interval
+    sleep Fiveruns::Dash.session.reporter.interval + 1
     
     total_invocations = 0
     
     coll.find().each do |row|
-      values = row[:values]
-      if values
-        invocations = values[:invocations]
+      values = row["values"]
+      if values && values.first
+        invocations = values.first["invocations"]
         total_invocations += invocations
       end
     end
 
-    assert 5, total_invocations
+    assert_equal 5, total_invocations
   end
   
   def test_mongo_data_store_with_multiple_metrics
@@ -64,20 +65,18 @@ class BaseTest < Test::Unit::TestCase
     coll2 = app.db.collection('testpack-another_response_time')
     coll2.clear
     
-    10.times do
+    3.times do
       get "/foo"
     end
     
-    sleep Fiveruns::Dash.session.reporter.interval
-
-    #coll.find().each { |row| puts row.class; puts row.inspect; puts "-------" }
+    sleep Fiveruns::Dash.session.reporter.interval + 1
     
     total_coll1_invocations = 0
     
     coll1.find().each do |row|
-      values = row[:values]
-      if values
-        invocations = values[:invocations]
+      values = row["values"]
+      if values && values.first
+        invocations = values.first["invocations"]
         total_coll1_invocations += invocations
       end
     end
@@ -85,15 +84,15 @@ class BaseTest < Test::Unit::TestCase
     total_coll2_invocations = 0
     
     coll2.find().each do |row|
-      values = row[:values]
-      if values
-        invocations = values[:invocations]
+      values = row["values"]
+      if values && values.first
+        invocations = values.first["invocations"]
         total_coll2_invocations += invocations
       end
     end
 
-    assert 5, total_coll1_invocations
-    assert 5, total_coll2_invocations
+    assert_equal 3, total_coll1_invocations
+    assert_equal 3, total_coll2_invocations
   end
   
   # Just trying to ensure Dash is sending info when requests aren't being made
