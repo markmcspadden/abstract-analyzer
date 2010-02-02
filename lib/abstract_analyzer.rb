@@ -7,6 +7,7 @@ module AbstractAnalyzer
   @@STORE = nil
   @@DB = nil
   @@LOGGER = nil
+  @@METRICS = []
   
   class << self
     
@@ -15,6 +16,14 @@ module AbstractAnalyzer
     end
     def db=(connection)
       @@DB = connection
+      
+      if store.to_s.downcase == "activerecord"
+        @@METRICS = connection.tables
+      else
+        @@METRICS = []
+      end
+      
+      @@DB
     end
     
     def store
@@ -29,6 +38,13 @@ module AbstractAnalyzer
     end
     def logger=(log)
       @@LOGGER = log
+    end
+    
+    def metrics
+      @@METRICS
+    end
+    def metrics=(value)
+      @@METRICS = value
     end
     
   end

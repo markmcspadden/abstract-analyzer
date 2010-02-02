@@ -17,8 +17,8 @@ def setup_mongodb
   # Create a test mongo db for defaults
   test_mongo_db = Mongo::Connection.new('localhost', 27017).db('test-dash-analyzer-db')
   
-  AbstractAnalyzer.db = test_mongo_db
   AbstractAnalyzer.store = "mongoDB"
+  AbstractAnalyzer.db = test_mongo_db
 end
 
 require 'sqlite3'
@@ -29,9 +29,9 @@ def setup_activerecord
                   :adapter  => 'sqlite3',
                   :database => 'test-dash-analyzer.db'
                 )
-  
-  AbstractAnalyzer.db = connection
-  AbstractAnalyzer.store = "ActiveRecord"
+
+  AbstractAnalyzer.store = "ActiveRecord"  
+  AbstractAnalyzer.db = ActiveRecord::Base.connection
 end
 
 # Create a test rack app

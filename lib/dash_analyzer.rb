@@ -11,7 +11,7 @@ require 'fiveruns/dash'
 # TODO: Only include the storage library needed
 require 'mongo'  
 
-gem 'activerecord', '=2.3.4'
+gem 'activerecord'
 require 'active_record'
 
 require File.dirname(__FILE__) << '/dash_analyzer/dash_extensions'

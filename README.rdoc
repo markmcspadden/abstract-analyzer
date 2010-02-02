@@ -50,6 +50,8 @@ Second, in RAILS_ROOT/config/initializers/middlewares.rb
 
 Third, make sure you actually have a mongo db running on localhost:27017 or change the connection accordingly ;)
 
+Finally, access your stats at /analytics.
+
 ==Todo
 
 * Basic html views

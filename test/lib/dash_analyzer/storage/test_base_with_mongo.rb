@@ -1,9 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../../test_helper')
 
-setup_mongodb
-
 class BaseTest < Test::Unit::TestCase
   include Rack::Test::Methods
+  
+#  def setup
+    setup_mongodb
+#  end
 
   class MyApp < DashAnalyzer::Base        
     Fiveruns::Dash.register_recipe :testpack, :url => 'http://example.org' do |recipe|
@@ -37,7 +39,7 @@ class BaseTest < Test::Unit::TestCase
   
   def test_mongo_data_store
     coll = app.db.collection('testpack-response_time')
-    coll.clear
+    coll.remove
     
     5.times do
       get "/foo"
@@ -60,10 +62,10 @@ class BaseTest < Test::Unit::TestCase
   
   def test_mongo_data_store_with_multiple_metrics
     coll1 = app.db.collection('testpack-response_time')
-    coll1.clear
+    coll1.remove
     
     coll2 = app.db.collection('testpack-another_response_time')
-    coll2.clear
+    coll2.remove
     
     3.times do
       get "/foo"
@@ -98,7 +100,7 @@ class BaseTest < Test::Unit::TestCase
   # Just trying to ensure Dash is sending info when requests aren't being made
   def test_frequency_of_mongo_data_inserts
     coll = app.db.collection('testpack-response_time')
-    coll.clear
+    coll.remove
     
     5.times do
       get "/foo"

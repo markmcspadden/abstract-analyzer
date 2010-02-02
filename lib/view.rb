@@ -5,6 +5,9 @@ module AbstractAnalyzer
     def db
       AbstractAnalyzer.db
     end
+    def metrics
+      AbstractAnalyzer.metrics
+    end
 
     attr_accessor :collection
     def initialize(app, collection = nil)

@@ -1,9 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../test_helper')
 
-setup_mongodb
-
 class BaseTest < Test::Unit::TestCase
   include Rack::Test::Methods
+  
+  def setup
+    setup_mongodb
+  end
 
   class MyApp < DashAnalyzer::Base
         

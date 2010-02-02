@@ -48,6 +48,8 @@ end
 # Setup a store_activerecord method on Fiveruns::Dash::Store
 # NOTE: This + the mongo store need to be done better
 module Fiveruns::Dash::Store::ActiveRecord
+  include AbstractAnalyzer
+  
   def store_activerecord(*uris)    
     Fiveruns::Dash.logger.info "Attempting to send #{payload.class}"
   
@@ -79,10 +81,8 @@ module Fiveruns::Dash::Store::ActiveRecord
       if !(defined?(class_name.constantize) == "constant")
         Fiveruns::Dash.logger.warn "Attempting to create a model for: #{storage_name}"
         
-        eval <<-EOC
-          class #{class_name} < ActiveRecord::Base
-            
-          end
+        AbstractAnalyzer.module_eval <<-EOC
+          class #{class_name} < ActiveRecord::Base; end
         EOC
       else
         Fiveruns::Dash.logger.warn "Model defined for: #{storage_name} and defined as: #{defined?(class_name.constantize)}"
@@ -151,7 +151,7 @@ module Fiveruns::Dash::Store::ActiveRecord
 
       # Push the record to the db
       Fiveruns::Dash.logger.warn "Attempting insert this metric into a model: #{storage_name}"      
-      "Fiveruns::Dash::Store::ActiveRecord::#{class_name}".constantize.create(data)
+      "AbstractAnalyzer::#{class_name}".constantize.create(data)
     rescue
       Fiveruns::Dash.logger.warn "Could not send this metric: #{storage_name}. Reason: #{$!}"
     end

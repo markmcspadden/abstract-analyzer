@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mark McSpadden"]
-  s.date = %q{2009-10-28}
+  s.date = %q{2010-02-02}
   s.email = %q{markmcspadden@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -30,6 +30,9 @@ Gem::Specification.new do |s|
      "lib/middleware/rails.rb",
      "lib/middleware/rails/dash.rb",
      "lib/view.rb",
+     "test/lib/dash_analyzer/storage/test-dash-analyzer.db",
+     "test/lib/dash_analyzer/storage/test_base_with_activerecord.rb",
+     "test/lib/dash_analyzer/storage/test_base_with_mongo.rb",
      "test/lib/dash_analyzer/test_base.rb",
      "test/lib/dash_analyzer/test_dash_extensions.rb",
      "test/lib/dash_analyzer/test_view.rb",
@@ -45,7 +48,9 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{A rack based app analyzer}
   s.test_files = [
-    "test/lib/dash_analyzer/test_base.rb",
+    "test/lib/dash_analyzer/storage/test_base_with_activerecord.rb",
+     "test/lib/dash_analyzer/storage/test_base_with_mongo.rb",
+     "test/lib/dash_analyzer/test_base.rb",
      "test/lib/dash_analyzer/test_dash_extensions.rb",
      "test/lib/dash_analyzer/test_view.rb",
      "test/lib/middleware/rails/dash.rb",
