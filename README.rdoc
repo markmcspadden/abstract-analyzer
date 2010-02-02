@@ -37,7 +37,10 @@ Second, in RAILS_ROOT/config/initializers/middlewares.rb
   # Setup the Analyzer Store & DB
   abstract_analyzer_db = Mongo::Connection.new('localhost', 27017).db('aa-rails-dash-analyzer-db')
   
-  AbstractAnalyzer.store = "mongoDB"
+  # OR
+  # abstract_analyzer_db = ActiceRecord::Base.connection
+  
+  AbstractAnalyzer.store = "mongoDB" # OR "ActiveRecord"
   AbstractAnalyzer.db = abstract_analyzer_db
 
   # Setup the Analyzer LOGGER
